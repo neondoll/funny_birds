@@ -13,7 +13,6 @@ import java.util.List;
  */
 public class Sprite {
     private Bitmap bitmap;
-
     private List<Rect> frames;
     private int frameWidth;
     private int frameHeight;
@@ -29,32 +28,20 @@ public class Sprite {
 
     private int padding;
 
-    public Sprite(double x,
-                  double y,
-                  double velocityX,
-                  double velocityY,
-                  Rect initialFrame,
-                  Bitmap bitmap) {
-
+    public Sprite(double x, double y, double velocityX, double velocityY, Rect initialFrame, Bitmap bitmap) {
         this.x = x;
         this.y = y;
         this.velocityX = velocityX;
         this.velocityY = velocityY;
-
         this.bitmap = bitmap;
-
         this.frames = new ArrayList<Rect>();
         this.frames.add(initialFrame);
-
         this.bitmap = bitmap;
-
         this.timeForCurrentFrame = 0.0;
         this.frameTime = 25;
         this.currentFrame = 0;
-
         this.frameWidth = initialFrame.width();
         this.frameHeight = initialFrame.height();
-
         this.padding = 20;
     }
 
@@ -152,16 +139,17 @@ public class Sprite {
 
     public void draw(Canvas canvas) {
         Paint p = new Paint();
-
         Rect destination = new Rect((int) x, (int) y, (int) (x + frameWidth), (int) (y + frameHeight));
         canvas.drawBitmap(bitmap, frames.get(currentFrame), destination, p);
     }
 
     public Rect getBoundingBoxRect() {
-        return new Rect((int) x + padding,
+        return new Rect(
+                (int) x + padding,
                 (int) y + padding,
                 (int) (x + frameWidth - 2 * padding),
-                (int) (y + frameHeight - 2 * padding));
+                (int) (y + frameHeight - 2 * padding)
+        );
     }
 
     public boolean intersect(Sprite s) {
