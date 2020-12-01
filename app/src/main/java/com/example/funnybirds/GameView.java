@@ -20,6 +20,7 @@ public class GameView extends View {
     private int viewHeight;
 
     private int points = 0;
+    private int level = 1;
 
     private final int timerInterval = 30;
 
@@ -93,6 +94,8 @@ public class GameView extends View {
         p.setTextSize(55.0f);
         p.setColor(Color.WHITE);
         canvas.drawText(points + "", viewWidth - 200, 70, p);
+
+        canvas.drawText("Уровень " + level, 100, 70, p);
     }
 
     protected void update() {
@@ -125,6 +128,17 @@ public class GameView extends View {
         if (pointBonus.intersect(playerBird)) {
             teleportPoint();
             points += 20;
+        }
+
+        if (points >= 200) {
+            level++;
+            enemyBird.setVx(-300 - (level - 1) * 100);
+            points = 0;
+        }
+        if (points <= -200) {
+            level = 1;
+            enemyBird.setVx(-300);
+            points = 0;
         }
 
         invalidate();
