@@ -7,11 +7,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
+    private GameView game;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_main);
-        setContentView(new GameView(this));
+        game = new GameView(this);
+        setContentView(game);
     }
 
     @Override
@@ -31,6 +34,11 @@ public class MainActivity extends AppCompatActivity {
 
         // noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            return true;
+        }
+
+        if (id == R.id.action_pause) {
+            game.pause();
             return true;
         }
 
